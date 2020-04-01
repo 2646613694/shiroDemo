@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jumpower.shirodemo.mapper.RoleMapper">
+    <resultMap type="Role" id="RoleResult">
+        <id     property="id"       column="rid"        />
+        <result property="name"     column="rname"      />
+    </resultMap>
+
+    <select id="getRolesByName" parameterType="String" resultMap="RoleResult">
+                    SELECT
+       `role`.`id` as rid
+    ,`role`.`name` as rname
+    FROM
+    `user_role`
+    INNER JOIN `user`
+        ON (`user_role`.`user_id` = `user`.`id`)
+    INNER JOIN `role`
+        ON (`user_role`.`role_id` = `role`.`id`)
+       WHERE user.`name`=#{name}
+       ;
+    </select>
+
+</mapper>
